@@ -1,0 +1,20 @@
+#!/bin/sh
+# Starts The Textsmith (Electron edition) from anywhere, detached from whatever started it.
+#   textsmith-electron [--working-directory DIR] [-e command args...]
+here=$(dirname "$(readlink -f "$0")")/..
+electron="$here/node_modules/.bin/electron"
+if [ ! -x "$electron" ]; then
+  echo "textsmith-electron: run 'npm install' in $(cd "$here" && pwd) first" >&2
+  exit 1
+fi
+case "$1" in
+  --version|-v)
+    v=$(sed -n 's/^ *"version": *"\(.*\)".*/\1/p' "$here/package.json")
+    echo "The Textsmith (Electron edition) $v ($(cd "$here" && pwd))"; exit 0 ;;
+esac
+if [ -n "$TEXTSMITH_FOREGROUND" ]; then exec "$electron" "$here" "$@"; fi
+if command -v setsid >/dev/null 2>&1; then
+  setsid -f "$electron" "$here" "$@" </dev/null >/dev/null 2>&1
+else
+  nohup "$electron" "$here" "$@" </dev/null >/dev/null 2>&1 &
+fi

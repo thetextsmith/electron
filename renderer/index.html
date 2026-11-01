@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:">
+  <title>The Textsmith</title>
+  <link rel="stylesheet" href="../node_modules/@xterm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="view-all">
+  <header id="bar">
+    <span id="where" aria-hidden="true"></span>
+    <nav aria-label="Views">
+      <button type="button" data-view="list" aria-pressed="false">Commands <kbd>Alt+0</kbd></button>
+      <button type="button" data-view="all" aria-pressed="true">Output <kbd>Alt+1</kbd></button>
+      <button type="button" data-view="err" aria-pressed="false">Errors <kbd>Alt+2</kbd></button>
+    </nav>
+  </header>
+
+  <main id="doc" aria-label="Session">
+    <p id="empty">No commands yet. Type one below and press Enter.</p>
+  </main>
+
+  <div id="live" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="live-now" class="sr-only" aria-live="assertive"></div>
+
+  <div id="matches" aria-hidden="true"></div>
+
+  <form id="prompt">
+    <label id="cmd-label" for="cmd">Command</label>
+    <input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
+  </form>
+
+  <div id="grid" hidden></div>
+
+  <section id="review" hidden aria-labelledby="review-title">
+    <h1 id="review-title" tabindex="-1"></h1>
+    <p id="review-note"></p>
+    <div id="review-body"></div>
+    <form id="keys-form">
+      <label for="keys" id="keys-label">Keys</label>
+      <input id="keys" type="text" autocomplete="off" spellcheck="false">
+    </form>
+  </section>
+
+  <section id="finder" hidden aria-labelledby="finder-title">
+    <h1 id="finder-title" tabindex="-1"></h1>
+    <p id="finder-note"></p>
+    <div class="finder-search">
+      <label for="finder-q">Filter</label>
+      <input id="finder-q" type="search" autocomplete="off" spellcheck="false">
+    </div>
+    <ul id="finder-list"></ul>
+  </section>
+
+  <section id="prefs" hidden aria-labelledby="prefs-title">
+    <h1 id="prefs-title" tabindex="-1">Preferences</h1>
+    <p>Changes are saved as you make them, in ~/.textsmith/prefs.json. Escape closes this page.</p>
+    <nav aria-label="Categories" id="prefs-nav"></nav>
+    <div id="prefs-body"></div>
+  </section>
+
+  <section id="copy" hidden aria-labelledby="copy-title">
+    <h1 id="copy-title" tabindex="-1"></h1>
+    <p id="copy-note">Shift with the arrow keys selects, Ctrl+C copies, Ctrl+A selects everything. Escape goes back.</p>
+    <textarea id="copy-text" aria-readonly="true" spellcheck="false" aria-labelledby="copy-title"></textarea>
+  </section>
+
+  <script src="../node_modules/@xterm/xterm/lib/xterm.js"></script>
+  <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script>
+  <script src="keys.js"></script>
+  <script src="bookmarks.js"></script>
+  <script src="renderer.js"></script>
+  <script src="prefs.js"></script>
+</body>
+</html>

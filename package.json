@@ -1,0 +1,31 @@
+{
+  "name": "textsmith-electron",
+  "version": "1.0.0",
+  "description": "A terminal whose output is a web document: one heading per command, written for screen readers first.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/smoke.js && node --test test/bookmarks.test.js",
+    "test:ui": "node --test --test-timeout=600000 test/ui.test.js",
+    "install-desktop": "sh scripts/install.sh",
+    "test:zsh": "node --test --test-timeout=600000 test/zsh.test.js",
+    "test:machine": "node --test --test-timeout=600000 test/machine.test.js"
+  },
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@lydell/node-pty": "^1.2.0-beta.15",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/headless": "^6.0.0",
+    "@xterm/xterm": "^6.0.0"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "playwright": "^1.56.0"
+  },
+  "productName": "The Textsmith (Electron edition)",
+  "bin": {
+    "textsmith-electron": "bin/textsmith-electron"
+  },
+  "author": "Ishe Chinyoka",
+  "homepage": "https://thetextsmith.com"
+}
